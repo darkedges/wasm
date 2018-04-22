@@ -1,1 +1,39 @@
-wasm
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Emscripten-Generated Code</title>
+    <style>
+        #container {
+            margin: 0px auto;
+            width: 640px;
+            height: 480px;
+        }
+
+        #videoElement {
+            width: 500px;
+            height: 375px;
+            background-color: #666;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <video id="videoElement">
+        </video>
+        <canvas id="imageData"></canvas>
+        <canvas id="imageData2"></canvas>
+    </div>
+    <script type="text/javascript">
+        var Module = { onRuntimeInitialized: function() {
+          _ready();
+        } };
+    </script>
+    <script src="detect_drivers_licence.js"></script>
+    <script src="detect_drivers_licence_asm.js"></script>
+</body>
+
+</html>
