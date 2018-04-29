@@ -7,10 +7,11 @@ var constraints = {
 };
 var video = document.querySelector("#videoElement");
 var imageData = document.querySelector("#imageData");
-var imageData2 = document.querySelector("#imageData2");
 var imageDataCtx = null;
-var imageData2Ctx = null;
 var ready = false;
+var stats = new Stats();
+stats.showPanel(0);
+document.getElementById('container').appendChild(stats.dom);
 
 let frame_bytes;
 
@@ -49,11 +50,13 @@ function onStreamDimensionsAvailable() {
 function trackFaces() {
     this.imageDataCtx.drawImage(this.video, 0, 0, this.imageData.width, this.imageData.height);
     var data = this.imageDataCtx.getImageData(0, 0, this.imageData.width, this.imageData.height);
-    processFrame(data);
-    requestAnimationFrame(this.trackFaces.bind(this));
+    if (!processFrame(data)) {
+        requestAnimationFrame(this.trackFaces.bind(this));
+    }
 }
 
 function processFrame(img_data) {
+    stats.begin();
     if (!frame_bytes) {
         frame_bytes = _arrayToHeap(img_data.data);
     }
@@ -66,10 +69,14 @@ function processFrame(img_data) {
     }
     // Perform operation on copy, no additional conversions needed, direct pointer manipulation
     // results will be put directly into the output param.
-    Module._rotate_colors(img_data.width, img_data.height, frame_bytes.byteOffset, frame_bytes.byteOffset);
+    found = Module._rotate_colors(img_data.width, img_data.height, frame_bytes.byteOffset, frame_bytes.byteOffset);
     // copy output to ImageData
-    img_data.data.set(frame_bytes);
-    this.imageDataCtx.putImageData(img_data, 0, 0);
+    if (found) {
+        img_data.data.set(frame_bytes);
+        this.imageDataCtx.putImageData(img_data, 0, 0);
+    }
+    stats.end();
+    return found;
 }
 
 function errorCallback(error) {

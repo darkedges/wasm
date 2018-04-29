@@ -2,8 +2,9 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Emscripten-Generated Code</title>
+    <title>Card Detector</title>
     <style>
         #container {
             margin: 0px auto;
@@ -15,7 +16,7 @@
             width: 500px;
             height: 375px;
             background-color: #666;
-            display: none;
+
         }
     </style>
 </head>
@@ -28,10 +29,13 @@
         <canvas id="imageData2"></canvas>
     </div>
     <script type="text/javascript">
-        var Module = { onRuntimeInitialized: function() {
-          _ready();
-        } };
+        var Module = {
+            onRuntimeInitialized: function () {
+                _ready();
+            }
+        };
     </script>
+    <script src="stats.min.js"></script>
     <script src="detect_drivers_licence.js"></script>
     <script src="detect_drivers_licence_asm.js"></script>
 </body>
