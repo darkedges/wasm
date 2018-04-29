@@ -51,6 +51,7 @@ function trackFaces() {
     this.imageDataCtx.drawImage(this.video, 0, 0, this.imageData.width, this.imageData.height);
     var data = this.imageDataCtx.getImageData(0, 0, this.imageData.width, this.imageData.height);
     if (!processFrame(data)) {
+        //processFrame(data);
         requestAnimationFrame(this.trackFaces.bind(this));
     }
 }
@@ -71,10 +72,10 @@ function processFrame(img_data) {
     // results will be put directly into the output param.
     found = Module._rotate_colors(img_data.width, img_data.height, frame_bytes.byteOffset, frame_bytes.byteOffset);
     // copy output to ImageData
-    if (found) {
+    //if (found) {
         img_data.data.set(frame_bytes);
         this.imageDataCtx.putImageData(img_data, 0, 0);
-    }
+    //}
     stats.end();
     return found;
 }
