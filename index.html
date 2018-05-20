@@ -1,21 +1,35 @@
 <html>
 
 <head>
+    <base href="/common/">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Card Detector</title>
+    <title>Emscripten-Generated Code</title>
     <style>
         #container {
+            position: relative;
             margin: 0px auto;
             width: 640px;
             height: 480px;
+        }
+        #container2 {
+            position: relative;
+            margin: 0px auto;
+            width: 640px;
+            height: 480px;
+        }
+
+        #container canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         #videoElement {
             width: 500px;
             height: 375px;
             background-color: #666;
+            display: none;
 
         }
     </style>
@@ -26,7 +40,10 @@
         <video id="videoElement">
         </video>
         <canvas id="imageData"></canvas>
-        <canvas id="imageData2"></canvas>
+        <canvas id="overlay"></canvas>
+    </div>
+    <div id="container2">
+        <canvas id="binarize"></canvas>
     </div>
     <script type="text/javascript">
         var Module = {
@@ -35,8 +52,8 @@
             }
         };
     </script>
-    <script src="stats.min.js"></script>
-    <script src="detect_drivers_licence.js"></script>
+    <script src="/webcam_class/stats.min.js"></script>
+    <script src="/webcam_class/detect_drivers_licence.js"></script>
     <script src="detect_drivers_licence_asm.js"></script>
 </body>
 
